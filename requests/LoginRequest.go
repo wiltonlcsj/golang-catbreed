@@ -22,7 +22,14 @@ func Login(context *gin.Context) {
 		return
 	}
 
-	if userLogin.Username != testUser.Username || userLogin.Password != testUser.Password {
+	securityService := services.NewSecurityService()
+	hashedPassword, err := securityService.HashAndSalt(userLogin.Password)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if err := securityService.ComparePasswords(hashedPassword, testUser.Password); err != nil {
 		context.JSON(http.StatusUnauthorized, "Invalid login credentials")
 		return
 	}
