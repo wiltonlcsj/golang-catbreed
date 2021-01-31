@@ -18,7 +18,7 @@ func Login(context *gin.Context) {
 	var userLogin models.User
 
 	if err := context.ShouldBindJSON(&userLogin); err != nil {
-		context.JSON(http.StatusBadRequest, "Invalid json sent")
+		context.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -28,8 +28,8 @@ func Login(context *gin.Context) {
 	}
 
 	token, err := services.NewJwtService().CreateJwtToken(testUser.Id)
-	if err != nil || token == ""{
-		context.JSON(http.StatusInternalServerError, "Internal server error, please repeat the request")
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 

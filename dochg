@@ -5,7 +5,7 @@
 --> gerar variaveis de ambiente //
 --> criar BD schema
 --> migração do banco
---> realizar busca a API /breeds?name=
+--> realizar busca a API /breeds?name= //
 --> realizar paginação dos resultados do BD
 --> criar autenticação JWT {"username": "admin", "password": "@#$RF@!718"} //
 --> criar rotas de login/logout //

@@ -10,16 +10,14 @@ import (
 func New() {
 	router := gin.Default()
 
+	// Open routes
 	router.GET("/ping", requests.Ping)
-
 	router.POST("/login", requests.Login)
 
 	v1 := router.Group("/v1", middlewares.AuthorizeJwt())
-	v1.GET("/ping", func(context *gin.Context) {
-		context.JSON(200, gin.H{
-			"message": "authenticated pong",
-		})
-	})
+	// Must auth routes
+	v1.GET("/ping", requests.AuthenticatedPing)
+	v1.GET("/breeds", requests.Breed)
 
 	err := router.Run(":" + os.Getenv("APP_PORT"))
 	if err != nil {
