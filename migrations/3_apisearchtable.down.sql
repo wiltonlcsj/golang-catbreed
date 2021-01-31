@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS `hgtest`.`api_search`

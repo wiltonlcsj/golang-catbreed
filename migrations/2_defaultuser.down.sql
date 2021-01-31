@@ -1,0 +1,1 @@
+DELETE FROM `hgtest`.`users` WHERE username = 'admin'
