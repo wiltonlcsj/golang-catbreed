@@ -1,0 +1,194 @@
+definitions:
+  helpers.HttpDefaultResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  models.CatBreed:
+    properties:
+      adaptability:
+        type: integer
+      affection_level:
+        type: integer
+      alt_names:
+        type: string
+      cfa_url:
+        type: string
+      child_friendly:
+        type: integer
+      country_code:
+        type: string
+      country_codes:
+        type: string
+      description:
+        type: string
+      dog_friendly:
+        type: integer
+      energy_level:
+        type: integer
+      experimental:
+        type: integer
+      grooming:
+        type: integer
+      hairless:
+        type: integer
+      health_issues:
+        type: integer
+      hypoallergenic:
+        type: integer
+      id:
+        type: string
+      indoor:
+        type: integer
+      intelligence:
+        type: integer
+      lap:
+        type: integer
+      life_span:
+        type: string
+      name:
+        type: string
+      natural:
+        type: integer
+      origin:
+        type: string
+      rare:
+        type: integer
+      reference_image_id:
+        type: string
+      rex:
+        type: integer
+      shedding_level:
+        type: integer
+      short_legs:
+        type: integer
+      social_needs:
+        type: integer
+      stranger_friendly:
+        type: integer
+      suppressed_tail:
+        type: integer
+      temperament:
+        type: string
+      vcahospitals_url:
+        type: string
+      vetstreet_url:
+        type: string
+      vocalisation:
+        type: integer
+      weight:
+        $ref: '#/definitions/models.WeightBreed'
+      wikipedia_url:
+        type: string
+    type: object
+  models.WeightBreed:
+    properties:
+      imperial:
+        type: string
+      metric:
+        type: string
+    type: object
+  requests.UserLoginDto:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates a user and retrieve a JWT for API calls
+      operationId: Authentication
+      parameters:
+      - description: Credentials
+        in: body
+        name: '{object}'
+        required: true
+        schema:
+          $ref: '#/definitions/requests.UserLoginDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.HttpDefaultResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.HttpDefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/helpers.HttpDefaultResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/helpers.HttpDefaultResponse'
+      summary: Provides a JSON Web Token
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: Test if no authenticated ping is working
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.HttpDefaultResponse'
+      summary: Ping No-Authenticated
+  /v1/breeds:
+    get:
+      consumes:
+      - application/json
+      description: Search on API and DB for cat breeds
+      parameters:
+      - description: Name
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.CatBreed'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.HttpDefaultResponse'
+      security:
+      - bearerAuth: []
+      summary: Search for cat breeds
+  /v1/ping:
+    get:
+      consumes:
+      - application/json
+      description: Test if authenticated ping is working
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.HttpDefaultResponse'
+      security:
+      - bearerAuth: []
+      summary: Ping with Authentication
+securityDefinitions:
+  bearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
