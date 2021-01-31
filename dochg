@@ -3,13 +3,13 @@
 --> criar docker-compose //
 --> criar estrutura //
 --> gerar variaveis de ambiente //
+--> realizar busca a API /breeds?name= //
+--> criar autenticação JWT {"username": "admin", "password": "@#$RF@!718"} //
+--> criar rotas de login //
+--> criar doc do swagger //
 --> criar BD schema
 --> migração do banco
---> realizar busca a API /breeds?name= //
---> realizar paginação dos resultados do BD
---> criar autenticação JWT {"username": "admin", "password": "@#$RF@!718"} //
---> criar rotas de login/logout //
---> criar doc do swagger //
+--> criar logicas de cache
 --> verificar casos de teste
 --> ajustar readme
 --> criar diagramas de fluxo
