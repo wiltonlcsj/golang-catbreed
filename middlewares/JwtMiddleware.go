@@ -13,7 +13,9 @@ func AuthorizeJwt() gin.HandlerFunc {
 		authHeader := context.GetHeader("Authorization")
 
 		if len(authHeader) == 0 {
-			context.AbortWithStatus(http.StatusUnauthorized)
+			context.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"message": "authorization cannot be empty",
+			})
 			return
 		}
 
@@ -21,7 +23,9 @@ func AuthorizeJwt() gin.HandlerFunc {
 
 		err := services.NewJwtService().VerifyToken(tokenString)
 		if err != nil {
-			context.AbortWithStatus(http.StatusUnauthorized)
+			context.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"message": err.Error(),
+			})
 		}
 	}
 }

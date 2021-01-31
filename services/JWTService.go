@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"os"
@@ -12,8 +13,13 @@ type IJwtService interface {
 	VerifyToken(tokenString string) (*jwt.Token, error)
 }
 
-type JwtService struct{
+type JwtService struct {
 	secretKey string
+}
+
+type JwtCustomClaims struct {
+	jwt.StandardClaims
+	UserId int64
 }
 
 func NewJwtService() *JwtService {
@@ -22,10 +28,13 @@ func NewJwtService() *JwtService {
 	}
 }
 
-func (service *JwtService) CreateJwtToken(userId uint8) (string, error) {
-	atClaims := jwt.MapClaims{}
-	atClaims["userId"] = userId
-	atClaims["expireAt"] = time.Now().Add(time.Minute * 15).Unix()
+func (service *JwtService) CreateJwtToken(userId int64) (string, error) {
+	atClaims := JwtCustomClaims{
+		UserId: userId,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(time.Minute * 60).Unix(),
+		},
+	}
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
 	token, err := at.SignedString([]byte(service.secretKey))
@@ -38,7 +47,7 @@ func (service *JwtService) CreateJwtToken(userId uint8) (string, error) {
 }
 
 func (service *JwtService) VerifyToken(tokenString string) error {
-	_, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &JwtCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
@@ -47,6 +56,15 @@ func (service *JwtService) VerifyToken(tokenString string) error {
 
 	if err != nil {
 		return err
+	}
+
+	claims, ok := token.Claims.(*JwtCustomClaims)
+	if !ok {
+		return errors.New("couldn't parse claims")
+	}
+
+	if claims.ExpiresAt < time.Now().UTC().Unix() {
+		return errors.New("JWT is expired")
 	}
 
 	return nil
