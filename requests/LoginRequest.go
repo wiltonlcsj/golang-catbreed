@@ -11,8 +11,8 @@ import (
 //A sample user
 var testUser = models.User{
 	Id:       1,
-	Username: "username",
-	Password: "password",
+	Username: "admin",
+	Password: "$2a$08$Z1iKDAjpy81dUwILWCbhgeYxioSBneq4pVgzI5.RVS1LjHmZvGcuS",
 }
 
 type UserLoginDto struct {
@@ -41,13 +41,7 @@ func Login(context *gin.Context) {
 	}
 
 	securityService := services.NewSecurityService()
-	hashedPassword, err := securityService.HashAndSalt(userLogin.Password)
-	if err != nil {
-		context.JSON(http.StatusInternalServerError, &helpers.HttpDefaultResponse{Message: err.Error()})
-		return
-	}
-
-	if err := securityService.ComparePasswords(hashedPassword, testUser.Password); err != nil {
+	if err := securityService.ComparePasswords(testUser.Password, userLogin.Password); err != nil {
 		context.JSON(http.StatusUnauthorized, &helpers.HttpDefaultResponse{Message: "Invalid login credentials"})
 		return
 	}

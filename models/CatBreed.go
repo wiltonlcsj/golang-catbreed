@@ -16,7 +16,7 @@ type CatBreed struct {
 	Hairless         int64       `json:"hairless"`
 	HealthIssues     int64       `json:"health_issues"`
 	Hypoallergenic   int64       `json:"hypoallergenic"`
-	ID               string      `json:"id"`
+	Id               string      `json:"id"`
 	Indoor           int64       `json:"indoor"`
 	Intelligence     int64       `json:"intelligence"`
 	Lap              int64       `json:"lap"`
@@ -25,7 +25,7 @@ type CatBreed struct {
 	Natural          int64       `json:"natural"`
 	Origin           string      `json:"origin"`
 	Rare             int64       `json:"rare"`
-	ReferenceImageID string      `json:"reference_image_id"`
+	ReferenceImageId string      `json:"reference_image_id"`
 	Rex              int64       `json:"rex"`
 	SheddingLevel    int64       `json:"shedding_level"`
 	ShortLegs        int64       `json:"short_legs"`
@@ -36,11 +36,5 @@ type CatBreed struct {
 	VcahospitalsURL  string      `json:"vcahospitals_url"`
 	VetstreetURL     string      `json:"vetstreet_url"`
 	Vocalisation     int64       `json:"vocalisation"`
-	Weight           WeightBreed `json:"weight"`
 	WikipediaURL     string      `json:"wikipedia_url"`
-}
-
-type WeightBreed struct {
-	Imperial string `json:"imperial"`
-	Metric   string `json:"metric"`
 }
