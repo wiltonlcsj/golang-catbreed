@@ -1,0 +1,5 @@
+.envgit
+.idea
+.vscode
+go.sum
+.env

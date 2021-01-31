@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+    app:
+        build: .
+        ports:
+            - "${APP_PORT}:${APP_PORT}"
+        networks:
+            - develop-network
+
+    mysqldb:
+        image: "mysql:5.7.32"
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        ports:
+            - "${DATABASE_PORT}:3306"
+        environment:
+            - "MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASS}"
+            - "MYSQL_USER=${DATABASE_USER}"
+            - "MYSQL_PASSWORD=${DATABASE_PASS}"
+        networks:
+            - develop-network
+
+    adminer:
+        image: adminer:latest
+        restart: always
+        networks:
+            - develop-network
+        ports:
+            - "${ADMINER_PORT}:8080"
+
+networks:
+    develop-network:
+        driver: bridge
+        
+        
