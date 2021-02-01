@@ -16,6 +16,6 @@
 --> criar descrição da estrutura de pastas
 
 Casos busca
---> se local fora busca direto remoto
---> se remoto fora busca somente local
---> se os 2 fora não realiza busca
+--> se local fora busca direto remoto //
+--> se remoto fora busca somente local //
+--> se os 2 fora não realiza busca //
