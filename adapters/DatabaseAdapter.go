@@ -15,6 +15,21 @@ func NewDatabaseAdapter() *DatabaseAdapter {
 	return &DatabaseAdapter{}
 }
 
+func (adapter *DatabaseAdapter) Ping() error {
+	conn, err := adapter.CreateConnection()
+	if err != nil {
+		return err
+	}
+
+	err = conn.Ping()
+	if err != nil {
+		return err
+	}
+
+	_ = conn.Close()
+	return nil
+}
+
 func (adapter *DatabaseAdapter) CreateConnection() (db *sql.DB, err error) {
 	var (
 		host     = os.Getenv("DATABASE_HOST")
@@ -41,4 +56,54 @@ func (adapter *DatabaseAdapter) CloseConnection(db *sql.DB) {
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func (adapter *DatabaseAdapter) QueryMultiple(sqlcommand string, args ...interface{}) (*sql.Rows, error) {
+	db, err := adapter.CreateConnection()
+	if err != nil {
+		fmt.Println(err)
+		return nil, errors.New("cannot open connection")
+	}
+
+	results, err := db.Query(sqlcommand, args...)
+	if err != nil {
+		fmt.Println(err)
+		return nil, errors.New("cannot execute query string")
+	}
+
+	adapter.CloseConnection(db)
+
+	return results, nil
+}
+
+func (adapter *DatabaseAdapter) ExecuteCommand(sqlcommand string, args ...interface{}) (sql.Result, error) {
+	db, err := adapter.CreateConnection()
+	if err != nil {
+		fmt.Println(err)
+		return nil, errors.New("cannot open connection")
+	}
+
+	res, err := db.Exec(sqlcommand, args...)
+	if err != nil {
+		fmt.Println(err)
+		return nil, errors.New("cannot execute query string")
+	}
+
+	adapter.CloseConnection(db)
+
+	return res, nil
+}
+
+func (adapter *DatabaseAdapter) QueryRow(sqlcommand string, args ...interface{}) (*sql.Row, error) {
+	db, err := adapter.CreateConnection()
+	if err != nil {
+		fmt.Println(err)
+		return nil, errors.New("cannot open connection")
+	}
+
+	row := db.QueryRow(sqlcommand, args...)
+
+	adapter.CloseConnection(db)
+
+	return row, nil
 }
