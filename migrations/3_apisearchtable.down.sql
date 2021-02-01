@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS `hgtest`.`api_search`
+DROP TABLE IF EXISTS `hgbackend`.`api_search`

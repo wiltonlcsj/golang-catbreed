@@ -24,6 +24,7 @@ func New() {
 
 	// Open routes
 	router.GET("/ping", requests.Ping)
+	router.GET("/db-health", requests.HealthDatabase)
 	router.POST("/login", requests.Login)
 
 	v1 := router.Group("/v1", middlewares.AuthorizeJwt())

@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS `hgtest`.`cat_breed`
+DROP TABLE IF EXISTS `hgbackend`.`cat_breed`

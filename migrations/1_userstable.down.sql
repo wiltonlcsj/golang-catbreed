@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS `hgtest`.`users`
+DROP TABLE IF EXISTS `hgbackend`.`users`

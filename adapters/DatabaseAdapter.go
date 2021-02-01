@@ -35,13 +35,12 @@ func (adapter *DatabaseAdapter) CreateConnection() (db *sql.DB, err error) {
 		host     = os.Getenv("DATABASE_HOST")
 		user     = os.Getenv("DATABASE_USER")
 		password = os.Getenv("DATABASE_PASS")
-		port     = os.Getenv("DATABASE_PORT")
 		dbname   = os.Getenv("DATABASE_NAME")
 	)
 
 	db, err = sql.Open(
 		"mysql",
-		fmt.Sprintf(`%s:%s@tcp(%s:%s)/%s`, user, password, host, port, dbname),
+		fmt.Sprintf(`%s:%s@tcp(%s)/%s`, user, password, host, dbname),
 	)
 
 	if err != nil {

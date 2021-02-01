@@ -1,1 +1,1 @@
-DELETE FROM `hgtest`.`users` WHERE username = 'admin'
+DELETE FROM `hgbackend`.`users` WHERE username = 'admin'

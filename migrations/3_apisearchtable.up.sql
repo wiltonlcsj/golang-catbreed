@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `hgtest`.`api_search` (
+CREATE TABLE IF NOT EXISTS `hgbackend`.`api_search` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `query_param` VARCHAR(255) NOT NULL,
   `api_status` INT(3) NOT NULL,

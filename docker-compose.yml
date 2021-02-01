@@ -4,8 +4,8 @@ services:
         build: .
         ports:
             - "${APP_PORT}:${APP_PORT}"
-        networks:
-            - develop-network
+        depends_on:
+            -   mysqldb
 
     mysqldb:
         image: "mysql:5.7.32"
@@ -18,19 +18,20 @@ services:
             - "MYSQL_USER=${DATABASE_USER}"
             - "MYSQL_PASSWORD=${DATABASE_PASS}"
             - "MYSQL_DATABASE=${DATABASE_NAME}"
-        networks:
-            - develop-network
+            - DATABASE_HOST=mysqldb
 
     adminer:
         image: adminer:latest
         restart: always
-        networks:
-            - develop-network
         ports:
             - "${ADMINER_PORT}:8080"
-
-networks:
-    develop-network:
-        driver: bridge
         
-        
+    migrate:
+        image: migrate/migrate
+        volumes:
+            - ./migrations:/migrations
+        command: [ "-path", "/migrations", "-database",
+                   "mysql://root:${DATABASE_ROOT_PASS}@tcp(${DATABASE_HOST})/${DATABASE_NAME}", "up", "4" ]
+        depends_on:
+            - mysqldb
+            - app

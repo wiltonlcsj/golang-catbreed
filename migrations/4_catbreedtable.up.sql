@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `hgtest`.`cat_breed` (
+CREATE TABLE IF NOT EXISTS `hgbackend`.`cat_breed` (
   `id` VARCHAR(255) NOT NULL,
   `adaptability` INT(1) NOT NULL,
   `affection_level` INT(1) NOT NULL,
