@@ -8,7 +8,7 @@
 --> criar rotas de login //
 --> criar doc do swagger //
 --> criar BD schema //
---> migração do banco
+--> migração do banco //
 --> criar logicas de cache //
 --> verificar casos de teste
 --> ajustar readme //
