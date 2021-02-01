@@ -24,16 +24,16 @@ func NewApiSearchRepository() *ApiSearchRepository {
 func (repository *ApiSearchRepository) FindByQueryName(name string) bool {
 	row, err := repository.DbAdapter.QueryRow("SELECT id FROM api_search where query_param = ?", name)
 	if err != nil {
-		return true
+		return false
 	}
 
 	apisearch := &models.ApiSearch{}
 	err = row.Scan(&apisearch.Id)
 	if err != nil {
-		return true
+		return false
 	}
 
-	return false
+	return true
 }
 
 func (repository *ApiSearchRepository) InsertNew(apiSearch models.ApiSearch) {

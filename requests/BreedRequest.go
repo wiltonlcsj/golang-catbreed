@@ -58,11 +58,7 @@ func Breed(context *gin.Context) {
 				catBreeds = breeds
 				for i := 0; i < len(catBreeds); i++ {
 					existsBreed, err := breedRepository.VerifyIfExists(catBreeds[i].Name)
-					if err != nil {
-						continue
-					}
-
-					if !existsBreed {
+					if err != nil || !existsBreed {
 						breedRepository.InsertNew(catBreeds[i])
 					}
 				}

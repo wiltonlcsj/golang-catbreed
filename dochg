@@ -10,10 +10,10 @@
 --> criar BD schema //
 --> migração do banco //
 --> criar logicas de cache //
---> verificar casos de teste
 --> ajustar readme //
 --> criar diagramas de fluxo //
 --> criar descrição da estrutura de pastas //
+--> verificar casos de teste
 
 Casos busca
 --> se local fora busca direto remoto //

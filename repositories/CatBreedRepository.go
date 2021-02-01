@@ -22,7 +22,7 @@ func NewCatBreedRepository() *CatBreedRepository {
 }
 
 func (repository *CatBreedRepository) FindByName(name string) []models.CatBreed {
-	rows, err := repository.DbAdapter.QueryMultiple("SELECT * from cat_breed WHERE name like ?", name)
+	rows, err := repository.DbAdapter.QueryMultiple("SELECT * from cat_breed WHERE name like ?", "%"+name+"%")
 	if err == nil {
 		var catBreeds []models.CatBreed
 
@@ -82,16 +82,16 @@ func (repository *CatBreedRepository) FindByName(name string) []models.CatBreed 
 func (repository *CatBreedRepository) VerifyIfExists(name string) (bool, error) {
 	row, err := repository.DbAdapter.QueryRow("SELECT id FROM cat_breed where name = ?", name)
 	if err != nil {
-		return true, err
+		return false, err
 	}
 
 	catbreed := &models.CatBreed{}
 	err = row.Scan(&catbreed.Id)
 	if err != nil {
-		return true, err
+		return false, err
 	}
 
-	return false, nil
+	return true, nil
 }
 
 func (repository *CatBreedRepository) InsertNew(breed models.CatBreed) {
