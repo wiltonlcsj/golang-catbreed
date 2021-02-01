@@ -11,9 +11,9 @@
 --> migração do banco
 --> criar logicas de cache //
 --> verificar casos de teste
---> ajustar readme
+--> ajustar readme //
 --> criar diagramas de fluxo //
---> criar descrição da estrutura de pastas
+--> criar descrição da estrutura de pastas //
 
 Casos busca
 --> se local fora busca direto remoto //
