@@ -76,16 +76,7 @@ definitions:
         type: string
       vocalisation:
         type: integer
-      weight:
-        $ref: '#/definitions/models.WeightBreed'
       wikipedia_url:
-        type: string
-    type: object
-  models.WeightBreed:
-    properties:
-      imperial:
-        type: string
-      metric:
         type: string
     type: object
   requests.UserLoginDto:
@@ -166,6 +157,10 @@ paths:
             type: array
         "400":
           description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.HttpDefaultResponse'
+        "503":
+          description: Service Unavailable
           schema:
             $ref: '#/definitions/helpers.HttpDefaultResponse'
       security:

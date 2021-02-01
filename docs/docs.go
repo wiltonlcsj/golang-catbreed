@@ -133,6 +133,12 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/helpers.HttpDefaultResponse"
                         }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.HttpDefaultResponse"
+                        }
                     }
                 }
             }
@@ -280,21 +286,7 @@ var doc = `{
                 "vocalisation": {
                     "type": "integer"
                 },
-                "weight": {
-                    "$ref": "#/definitions/models.WeightBreed"
-                },
                 "wikipedia_url": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.WeightBreed": {
-            "type": "object",
-            "properties": {
-                "imperial": {
-                    "type": "string"
-                },
-                "metric": {
                     "type": "string"
                 }
             }
