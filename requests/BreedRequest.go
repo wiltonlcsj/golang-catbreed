@@ -56,10 +56,12 @@ func Breed(context *gin.Context) {
 			} else if len(breeds) != 0 {
 				apiSearch.Response = "Not empty"
 				catBreeds = breeds
-				for i := 0; i < len(catBreeds); i++ {
-					existsBreed, err := breedRepository.VerifyIfExists(catBreeds[i].Name)
-					if err != nil || !existsBreed {
-						breedRepository.InsertNew(catBreeds[i])
+				if dbConnection {
+					for i := 0; i < len(catBreeds); i++ {
+						existsBreed, err := breedRepository.VerifyIfExists(catBreeds[i].Name)
+						if err != nil || !existsBreed {
+							breedRepository.InsertNew(catBreeds[i])
+						}
 					}
 				}
 			}
@@ -68,7 +70,10 @@ func Breed(context *gin.Context) {
 			if len(apiSearch.Response) == 0 {
 				apiSearch.Response = "empty search"
 			}
-			apiRepository.InsertNew(*apiSearch)
+
+			if dbConnection {
+				apiRepository.InsertNew(*apiSearch)
+			}
 		}
 	}
 
@@ -79,5 +84,12 @@ func Breed(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, catBreeds)
+	if len(catBreeds) > 0 {
+		context.JSON(http.StatusOK, catBreeds)
+		return
+	}
+
+	context.JSON(http.StatusNoContent, helpers.HttpDefaultResponse{
+		Message: "none breed could be found with that name",
+	})
 }
