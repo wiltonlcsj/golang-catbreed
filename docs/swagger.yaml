@@ -89,6 +89,19 @@ definitions:
 info:
   contact: {}
 paths:
+  /db-health:
+    get:
+      consumes:
+      - application/json
+      description: Test if database ping is working
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.HttpDefaultResponse'
+      summary: Test database Health
   /login:
     post:
       consumes:

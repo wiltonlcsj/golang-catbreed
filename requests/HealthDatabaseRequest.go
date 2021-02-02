@@ -11,7 +11,7 @@ import (
 // @Accept json
 // @Produce json
 // @Success 200 {object} helpers.HttpDefaultResponse
-// @Router /ping [get]
+// @Router /db-health [get]
 func HealthDatabase(context *gin.Context) {
 	dbAdapter := adapters.NewDatabaseAdapter()
 
