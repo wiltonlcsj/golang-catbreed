@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -20,6 +21,10 @@ func NewSecurityService() *UserSecurityService {
 }
 
 func (service *UserSecurityService) HashAndSalt(password string) (string, error) {
+	if len(password) == 0 {
+		return "", errors.New("password cannot be empty")
+	}
+
 	byteHash := []byte(password)
 	hash, err := bcrypt.GenerateFromPassword(byteHash, service.HashCost)
 	if err != nil {
