@@ -32,6 +32,9 @@ HostGator Backend Test
 >You can run tests through docker-compose as well, using:\
 `docker-compose -f docker-compose.test.yml --build`
 
+* PS1: Only unit tests are made, basically for the services where it exists the most\
+part of hard logic at whole process
+
 
 ### Directory tree
     .
