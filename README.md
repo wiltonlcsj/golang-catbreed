@@ -1,6 +1,8 @@
 HostGator Backend Test
 ============================
-> Project for HostGator backend test, using GoLang with some 3rd party plugins
+> Project for HostGator backend test, using GoLang with some 3rd party plugins.
+> The project consists and make a request to a external api to get information
+> about cat breeds and create in DB cache of the results obtained previously.
 
 ### 3rd party libraries
 
@@ -13,7 +15,7 @@ HostGator Backend Test
 
 ### Pre-requisites
 
-> Docker version 20.10.2
+> Docker version 20.10.2\
 > Docker-compose 1.27.4
 
 ### Getting started
@@ -21,13 +23,13 @@ HostGator Backend Test
 >You *MUST* setup environment file correctly, you can use .env.local as reference.
 >Both of dockerfiles and application use that file, so set it carefully.
 
->You can run the webserver through docker-compose using the command:
+>You can run the webserver through docker-compose using the command:\
 `docker-compose up --build`
 
 * PS1: Migrations run automatically through docker-compose command
 * PS2: Sometimes it takes a few seconds for migrations run correctly
 
->You can run tests through docker-compose as well, using:
+>You can run tests through docker-compose as well, using:\
 `docker-compose -f docker-compose.test.yml --build`
 
 
