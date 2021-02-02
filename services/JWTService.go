@@ -29,6 +29,11 @@ func NewJwtService() *JwtService {
 }
 
 func (service *JwtService) CreateJwtToken(userId int64) (string, error) {
+	if len(service.secretKey) == 0 {
+		return "", errors.New("secret key cannot be empty")
+	}
+
+
 	atClaims := JwtCustomClaims{
 		UserId: userId,
 		StandardClaims: jwt.StandardClaims{
